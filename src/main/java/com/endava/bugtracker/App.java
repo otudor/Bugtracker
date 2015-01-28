@@ -1,4 +1,4 @@
-package com.altisource.bugtracker.ha;
+package com.endava.bugtracker;
 
 import java.util.logging.Logger;
 
@@ -6,8 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.altisource.bugtracker.ha.domain.Project;
-import com.altisource.bugtracker.ha.repository.ProjectRepository;
+import com.endava.bugtracker.domain.Issue;
+import com.endava.bugtracker.repository.IssueRepository;
 
 /**
  * Hello world!
@@ -24,8 +24,12 @@ public class App
     	ApplicationContext ctx = new ClassPathXmlApplicationContext("/appContext.xml");
     	LOG.info("Context initialized");
     	
-    	ProjectRepository repo = (ProjectRepository)ctx.getBean("projectRepository");
-//    	repo.delete(13L);
-    	repo.save(new Project());
+//    	ProjectRepository repo = (ProjectRepository)ctx.getBean("projectRepository");
+////    	repo.delete(13L);
+//    	repo.save(new Project());
+    	
+    	IssueRepository repo = (IssueRepository)ctx.getBean("issueRepository");
+    	
+    	repo.save(new Issue());
     }
 }
