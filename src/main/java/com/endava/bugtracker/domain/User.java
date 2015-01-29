@@ -34,8 +34,11 @@ public class User implements Serializable {
 	@JoinColumn(name = "ROLE_ID")
 	private Role role;
 	
-	@OneToMany(mappedBy = "owner")
+	@OneToMany(mappedBy = "createdBy")
 	private List<Issue> issues;
+	
+	@OneToMany(mappedBy = "owner")
+	private List<Project> projects;
 	
 	@Column(name = "FIRSTNAME")
 	private String firstName;
@@ -86,6 +89,14 @@ public class User implements Serializable {
 
 	public void setIssues(List<Issue> issues) {
 		this.issues = issues;
+	}
+
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	public String getFirstName() {

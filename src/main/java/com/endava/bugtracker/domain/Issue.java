@@ -23,6 +23,9 @@ public class Issue implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(name = "TITLE")
+	private String title;
+	
 	@ManyToOne
 	@JoinColumn(name = "CAT_ID")
 	private Category category;
@@ -37,7 +40,7 @@ public class Issue implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "USER_ID")
-	private User owner;
+	private User createdBy;
 	
 	@Column
 	private Timestamp created;
@@ -77,12 +80,12 @@ public class Issue implements Serializable {
 		this.state = state;
 	}
 
-	public User getOwner() {
-		return owner;
+	public User getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setOwner(User owner) {
-		this.owner = owner;
+	public void setCreatedBy(User owner) {
+		this.createdBy = owner;
 	}
 
 	public Timestamp getCreated() {

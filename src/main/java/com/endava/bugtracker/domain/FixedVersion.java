@@ -10,9 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "VERSION")
-public class Version implements Serializable {
-
+@Table(name = "FIXED_VERSION")
+public class FixedVersion implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +23,7 @@ public class Version implements Serializable {
 	@Column(name = "NAME")
 	private String name;
 
-	public Version(){}
+	public FixedVersion(){}
 	
 	public String getName() {
 		return name;

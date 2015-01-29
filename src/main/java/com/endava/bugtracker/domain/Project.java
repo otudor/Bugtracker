@@ -30,7 +30,7 @@ public class Project implements Serializable {
 	private User owner;
 	
 	@OneToOne
-	private Version version;
+	private FixedVersion version;
 	
 	public Project() {}
 
@@ -58,11 +58,11 @@ public class Project implements Serializable {
 		this.owner = owner;
 	}
 
-	public Version getVersion() {
+	public FixedVersion getVersion() {
 		return version;
 	}
 
-	public void setVersion(Version version) {
+	public void setVersion(FixedVersion version) {
 		this.version = version;
 	}
 }
