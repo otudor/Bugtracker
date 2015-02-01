@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,38 +20,47 @@ import javax.persistence.Table;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "NAME")
 	private String name;
-	
+
 	@Column(name = "PASSWORD")
 	private String password;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ROLE_ID")
 	private Role role;
-	
+
 	@OneToMany(mappedBy = "createdBy")
 	private List<Issue> issues;
-	
+
 	@OneToMany(mappedBy = "owner")
 	private List<Project> projects;
-	
+
 	@Column(name = "FIRSTNAME")
 	private String firstName;
-	
+
 	@Column(name = "LASTNAME")
 	private String lastName;
-	
+
 	@Column(name = "EMAIL")
 	private String email;
 
-	public User() {}
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role", length = 20, nullable = false)
+	private RoleService roles;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "sign_in_provider", length = 20)
+	private SigninProvider signInProvider;
+
+	public User() {
+	}
 
 	public Long getId() {
 		return id;
@@ -122,4 +133,64 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public RoleService getRoles() {
+		return roles;
+	}
+
+	public void setRoles(RoleService roles) {
+		this.roles = roles;
+	}
+
+	public SigninProvider getSignInProvider() {
+		return signInProvider;
+	}
+
+	public void setSignInProvider(SigninProvider signInProvider) {
+		this.signInProvider = signInProvider;
+	}
+
+	public static Builder getBuilder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+
+		private User user;
+
+		public Builder() {
+			user = new User();
+			user.roles = RoleService.ROLE_USER;
+		}
+
+		public Builder email(String email) {
+			user.email = email;
+			return this;
+		}
+
+		public Builder firstName(String firstName) {
+			user.firstName = firstName;
+			return this;
+		}
+
+		public Builder lastName(String lastName) {
+			user.lastName = lastName;
+			return this;
+		}
+
+		public Builder password(String password) {
+			user.password = password;
+			return this;
+		}
+
+		public Builder signInProvider(SigninProvider signInProvider) {
+			user.signInProvider = signInProvider;
+			return this;
+		}
+
+		public User build() {
+			return user;
+		}
+	}
+
 }
