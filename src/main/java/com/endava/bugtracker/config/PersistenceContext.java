@@ -1,7 +1,8 @@
 package com.endava.bugtracker.config;
 
 
-import com.zaxxer.hikari.HikariDataSource;
+import com.jolbox.bonecp.BoneCPDataSource;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {
-       "com.endava"
+       "com.endava.bugtracker"
 })
 @EnableTransactionManagement
 public class PersistenceContext {
@@ -46,9 +47,9 @@ public class PersistenceContext {
 
     @Bean
     public DataSource dataSource() {
-        HikariDataSource dataSource = new HikariDataSource();
+    	BoneCPDataSource dataSource = new BoneCPDataSource();
 
-        dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
+        dataSource.setDriverClass(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
         dataSource.setJdbcUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
         dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
         dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
